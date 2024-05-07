@@ -38,3 +38,19 @@ pip install -U -r requirements.txt
 ```
 ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.6 upgrade-cluster.yml
 ```
+## Mise à jour de la commande kubectl
+```
+curl -LO "https://dl.k8s.io/release/v1.28.6/bin/linux/amd64/kubectl"
+chmod +x kubectl
+./kubectl version
+sudo mv kubectl /usr/local/bin/kubectl
+sudo chown root:root /usr/local/bin/kubectl
+```
+
+## Vérifier les numéros de version
+```
+kubectl version
+Client Version: v1.28.6
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.28.6
+```
