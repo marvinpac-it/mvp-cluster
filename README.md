@@ -62,3 +62,51 @@ depuis que ce repo a été créé. S'il y a des sections nouvelles on peut les i
 ```Shell
 diff -r inventory/sample/ inventory/mvp-cluster/
 ```
+
+**Output:**
+```Diff
+diff -r inventory/sample/group_vars/all/all.yml inventory/mvp-cluster/group_vars/all/all.yml
+3c3
+< bin_dir: /usr/local/bin
+---
+> bin_dir: /opt/bin
+diff -r inventory/sample/group_vars/k8s_cluster/addons.yml inventory/mvp-cluster/group_vars/k8s_cluster/addons.yml
+100,101c100,101
+< ingress_nginx_enabled: false
+< # ingress_nginx_host_network: false
+---
+> ingress_nginx_enabled: true
+> ingress_nginx_host_network: false
+105a106,109
+> #   - key: "node-role.kubernetes.io/master"
+> #     operator: "Equal"
+> #     value: ""
+> #     effect: "NoSchedule"
+110,112c114,116
+< # ingress_nginx_namespace: "ingress-nginx"
+< # ingress_nginx_insecure_port: 80
+< # ingress_nginx_secure_port: 443
+---
+> ingress_nginx_namespace: "ingress-nginx"
+> ingress_nginx_insecure_port: 80
+> ingress_nginx_secure_port: 443
+120,121c124,129
+< # ingress_nginx_extra_args:
+< #   - --default-ssl-certificate=default/foo-tls
+---
+> ingress_nginx_extra_args:
+>   - --default-ssl-certificate=ingress-nginx/star-marvinpac-com
+>   - --publish-status-address=192.168.77.149
+>   - --update-status=true
+>   - --controller-class=k8s.io/ingress-nginx
+>   - --watch-ingress-without-class=true
+123,124c131,132
+< # ingress_nginx_class: nginx
+< # ingress_nginx_without_class: true
+---
+> ingress_nginx_class: nginx
+> ingress_nginx_without_class: true
+138a147,148
+> #   - key: node-role.kubernetes.io/master
+> #     effect: NoSchedule
+```
