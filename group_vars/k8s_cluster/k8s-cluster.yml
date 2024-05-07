@@ -163,6 +163,8 @@ ndots: 2
 # dns_timeout: 2
 # dns_attempts: 2
 # Custom search domains to be added in addition to the default cluster search domains
+searchdomains:
+  - intranet-mvp.ch
 # searchdomains:
 #   - svc.{{ cluster_name }}
 #   - default.svc.{{ cluster_name }}
