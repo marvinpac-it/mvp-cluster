@@ -31,8 +31,10 @@ pip install -U -r requirements.txt
 
 > [!WARNING]  
 > Adapter kube_version à la dernière version supportée par Kubespray. La version supportée peut être
-> trouvée dans le README.md https://github.com/kubernetes-sigs/kubespray?tab=readme-ov-file#supported-components
+> trouvée dans le README.md en version stable de Kubernetes. Attention à ne pas prendre le README.md de la
+> branche master mais de bien afficher la release en question.
+> https://github.com/kubernetes-sigs/kubespray/tree/release-2.24?tab=readme-ov-file#supported-components
 
 ```
-ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.29.4 upgrade-cluster.yml
+ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.6 upgrade-cluster.yml
 ```
