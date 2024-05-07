@@ -54,3 +54,11 @@ Client Version: v1.28.6
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 Server Version: v1.28.6
 ```
+
+## Revue des changements du template inventaire
+De temps en temps il peut être bon de revoir la partie inventaire en la comparant à celle qui est fournie comme example.
+Un diff entre `inventory/sample` et `inventory/mvp-cluster` (ce repo) permet de revoir ce qui a été ajouté dans l'exemple
+depuis que ce repo a été créé. S'il y a des sections nouvelles on peut les incorporer.
+```
+diff -r inventory/sample/ inventory/mvp-cluster/
+```
