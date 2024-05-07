@@ -1,0 +1,48 @@
+all:
+  hosts:
+    flatcar01:
+      ansible_host: 192.168.77.101
+      ip: 192.168.77.101
+      access_ip: 192.168.77.101
+    flatcar02:
+      ansible_host: 192.168.77.102
+      ip: 192.168.77.102
+      access_ip: 192.168.77.102
+    flatcar03:
+      ansible_host: 192.168.77.103
+      ip: 192.168.77.103
+      access_ip: 192.168.77.103
+    flatcar04:
+      ansible_host: 192.168.77.104
+      ip: 192.168.77.104
+      access_ip: 192.168.77.104
+    flatcar05:
+      ansible_host: 192.168.77.105
+      ip: 192.168.77.105
+      access_ip: 192.168.77.105
+  children:
+    kube_control_plane:
+      hosts:
+        flatcar01:
+        flatcar02:
+        flatcar04:
+    kube_node:
+      hosts:
+        flatcar01:
+        flatcar02:
+        flatcar03:
+        flatcar04:
+        flatcar05:
+    etcd:
+      hosts:
+        flatcar01:
+        flatcar02:
+        flatcar03:
+        flatcar04:
+        flatcar05:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}
