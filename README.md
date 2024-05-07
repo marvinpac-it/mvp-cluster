@@ -25,9 +25,14 @@ pip install -U -r requirements.txt
 ```
 
 ## Mise à jour du cluster
+
+> [!NOTE]
+> S'assurer d'avoir la clé privée flatcar_ssh.pem (Vaultwarden) au bon endroit.
+
 > [!WARNING]  
-> Adapter kube_version à la dernière version supportée par Kubespray (voir release notes),
-> et s'assurer d'avoir la clé privée flatcar_ssh.pem (Vaultwarden) au bon endroit.
+> Adapter kube_version à la dernière version supportée par Kubespray. La version supportée peut être
+> trouvée dans le README.md https://github.com/kubernetes-sigs/kubespray?tab=readme-ov-file#supported-components
+
 ```
 ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.6 upgrade-cluster.yml
 ```
