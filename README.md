@@ -25,6 +25,7 @@ pip install -U -r requirements.txt
 
 ## Mise à jour du cluster
 ```
+# Adapter la version de kube à la dernière version stable supportée par Kubespray
 ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.3 upgrade-cluster.yml
 
 ```
