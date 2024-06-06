@@ -39,10 +39,11 @@ pip install -U -r requirements.txt
 ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.6 upgrade-cluster.yml
 ```
 
-Workaround for issue #11268 awaiting fix
+Kubespray 1.25.0 fails on Flatcar OS. I created an issue and PR, as the PR is not yet merged, a workaround is the following command for installation:
 ```Shell
 ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem -b -e '{"ansible_interpreter_python_fallback":[]}' upgrade-cluster.yml
 ```
+Once this first bug resolved, a second one appears which is fixed by applying the following patch: https://github.com/kubernetes-sigs/kubespray/pull/11224
 
 ## Mise à jour de la commande kubectl
 ```Shell
