@@ -38,6 +38,12 @@ pip install -U -r requirements.txt
 ```Shell
 ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.6 upgrade-cluster.yml
 ```
+
+Workaround for issue #11268 awaiting fix
+```Shell
+ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem -b -e '{"ansible_interpreter_python_fallback":[]}' upgrade-cluster.yml
+```
+
 ## Mise à jour de la commande kubectl
 ```Shell
 curl -LO "https://dl.k8s.io/release/v1.28.6/bin/linux/amd64/kubectl"
