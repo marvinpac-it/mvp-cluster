@@ -8,7 +8,7 @@ peut être utilisée également pour ajouter des noeuds au cluster, ou changer s
 > Adapter la branche à la dernière release stable de Kubespray.
 ```Shell
 cd /tmp
-git clone --single-branch --depth=1 --branch v2.24.1 git@github.com:kubernetes-sigs/kubespray.git
+git clone --single-branch --depth=1 --branch v2.25.0 git@github.com:kubernetes-sigs/kubespray.git
 cd kubespray/inventory/
 git clone --depth 1 git@github.com:marvinpac-it/mvp-cluster.git
 cd ..
@@ -33,10 +33,10 @@ pip install -U -r requirements.txt
 > Adapter kube_version à la dernière version supportée par Kubespray. La version supportée peut être
 > trouvée dans le README.md en version stable de Kubernetes. Attention à ne pas prendre le README.md de la
 > branche master mais de bien afficher la release en question.
-> https://github.com/kubernetes-sigs/kubespray/tree/release-2.24?tab=readme-ov-file#supported-components
+> https://github.com/kubernetes-sigs/kubespray/tree/release-2.25?tab=readme-ov-file#supported-components
 
 ```Shell
-ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.28.6 upgrade-cluster.yml
+ansible-playbook -i inventory/mvp-cluster/hosts.yaml -u core --key-file ~/.ssh/flatcar_ssh.pem  -b -e kube_version=v1.29.5 upgrade-cluster.yml
 ```
 
 Kubespray 1.25.0 fails on Flatcar OS. I created an issue and PR, as the PR is not yet merged, a workaround is the following command for installation:
@@ -47,7 +47,7 @@ Once this first bug resolved, a second one appears which is fixed by applying th
 
 ## Mise à jour de la commande kubectl
 ```Shell
-curl -LO "https://dl.k8s.io/release/v1.28.6/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/v1.29.5/bin/linux/amd64/kubectl"
 chmod +x kubectl
 ./kubectl version
 sudo mv kubectl /usr/local/bin/kubectl
@@ -57,9 +57,9 @@ sudo chown root:root /usr/local/bin/kubectl
 ## Vérifier les numéros de version
 ```Shell
 kubectl version
-Client Version: v1.28.6
+Client Version: v1.29.5
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-Server Version: v1.28.6
+Server Version: v1.29.5
 ```
 
 ## Revue des changements du template inventaire
