@@ -64,7 +64,7 @@ Server Version: v1.30.4
 
 ## Mise à jour du fichier de config avec lequel on se connecte
 ```Shell
-ssh -i ~/.ssh/flatcar_ssh.pem core@192.168.77.101 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
+ssh -i ~/.ssh/flatcar_ssh.pem core@flatcar01 "sudo cat /etc/kubernetes/admin.conf | sed 's/127\.0\.0\.1/flatcar01/g'" > ~/.kube/config
 ```
 
 ## Revue des changements du template inventaire
