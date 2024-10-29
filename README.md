@@ -62,6 +62,11 @@ Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 Server Version: v1.30.4
 ```
 
+## Mise à jour du fichier de config avec lequel on se connecte
+```Shell
+ssh -i ~/.ssh/flatcar_ssh.pem core@192.168.77.101 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
+```
+
 ## Revue des changements du template inventaire
 De temps en temps il peut être bon de revoir la partie inventaire en la comparant à celle qui est fournie comme example.
 Un diff entre `inventory/sample` et `inventory/mvp-cluster` (ce repo) permet de revoir ce qui a été ajouté dans l'exemple
