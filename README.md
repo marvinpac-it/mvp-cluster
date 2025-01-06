@@ -77,24 +77,25 @@ diff -r inventory/sample/ inventory/mvp-cluster/
 
 **Output:**
 ```Diff
-diff -r inventory/sample/group_vars/all/all.yml inventory/mvp-cluster/group_vars/all/all.yml
+Only in mvp-cluster/: .git
+Only in mvp-cluster/: .gitignore
+diff -r sample/group_vars/all/all.yml mvp-cluster/group_vars/all/all.yml
 3c3
 < bin_dir: /usr/local/bin
 ---
 > bin_dir: /opt/bin
-diff -r inventory/sample/group_vars/k8s_cluster/addons.yml inventory/mvp-cluster/group_vars/k8s_cluster/addons.yml
-100,101c100,101
+diff -r sample/group_vars/k8s_cluster/addons.yml mvp-cluster/group_vars/k8s_cluster/addons.yml
+16c16
+< metrics_server_enabled: false
+---
+> metrics_server_enabled: true
+104,105c104,105
 < ingress_nginx_enabled: false
 < # ingress_nginx_host_network: false
 ---
 > ingress_nginx_enabled: true
-> ingress_nginx_host_network: false
-105a106,109
-> #   - key: "node-role.kubernetes.io/master"
-> #     operator: "Equal"
-> #     value: ""
-> #     effect: "NoSchedule"
-110,112c114,116
+> ingress_nginx_host_network: true
+119,121c119,121
 < # ingress_nginx_namespace: "ingress-nginx"
 < # ingress_nginx_insecure_port: 80
 < # ingress_nginx_secure_port: 443
@@ -102,7 +103,7 @@ diff -r inventory/sample/group_vars/k8s_cluster/addons.yml inventory/mvp-cluster
 > ingress_nginx_namespace: "ingress-nginx"
 > ingress_nginx_insecure_port: 80
 > ingress_nginx_secure_port: 443
-120,121c124,129
+129,130c129,134
 < # ingress_nginx_extra_args:
 < #   - --default-ssl-certificate=default/foo-tls
 ---
@@ -112,13 +113,77 @@ diff -r inventory/sample/group_vars/k8s_cluster/addons.yml inventory/mvp-cluster
 >   - --update-status=true
 >   - --controller-class=k8s.io/ingress-nginx
 >   - --watch-ingress-without-class=true
-123,124c131,132
+132,133c136,137
 < # ingress_nginx_class: nginx
 < # ingress_nginx_without_class: true
 ---
 > ingress_nginx_class: nginx
 > ingress_nginx_without_class: true
-138a147,148
-> #   - key: node-role.kubernetes.io/master
-> #     effect: NoSchedule
+180c184
+< metallb_enabled: false
+---
+> metallb_enabled: true
+187,203c191,212
+< # metallb_config:
+< #   speaker:
+< #     nodeselector:
+< #       kubernetes.io/os: "linux"
+< #     tolerations:
+< #       - key: "node-role.kubernetes.io/control-plane"
+< #         operator: "Equal"
+< #         value: ""
+< #         effect: "NoSchedule"
+< #   controller:
+< #     nodeselector:
+< #       kubernetes.io/os: "linux"
+< #     tolerations:
+< #       - key: "node-role.kubernetes.io/control-plane"
+< #         operator: "Equal"
+< #         value: ""
+< #         effect: "NoSchedule"
+---
+> metallb_config:
+>   speaker:
+>     nodeselector:
+>       kubernetes.io/os: "linux"
+>     tolerations:
+>       - key: "node-role.kubernetes.io/control-plane"
+>         operator: "Equal"
+>         value: ""
+>         effect: "NoSchedule"
+>   controller:
+>     nodeselector:
+>       kubernetes.io/os: "linux"
+>     tolerations:
+>       - key: "node-role.kubernetes.io/control-plane"
+>         operator: "Equal"
+>         value: ""
+>         effect: "NoSchedule"
+>   address_pools:
+>     primary:
+>       ip_range:
+>         - 192.168.77.110-192.168.77.150
+>       auto_assign: true
+217,218c226,227
+< #   layer2:
+< #     - primary
+---
+>   layer2:
+>     - primary
+diff -r sample/group_vars/k8s_cluster/k8s-cluster.yml mvp-cluster/group_vars/k8s_cluster/k8s-cluster.yml
+129c129
+< kube_proxy_strict_arp: false
+---
+> kube_proxy_strict_arp: true
+161a162,163
+> searchdomains:
+>   - intranet-mvp.ch
+200,201c202,203
+< enable_coredns_k8s_external: false
+< coredns_k8s_external_zone: k8s_external.local
+---
+> enable_coredns_k8s_external: true
+> coredns_k8s_external_zone: k8s.intranet-mvp.ch
+Only in mvp-cluster/: hosts.yaml
+Only in mvp-cluster/: README.md
 ```
