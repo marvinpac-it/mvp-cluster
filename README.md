@@ -8,7 +8,7 @@ peut être utilisée également pour ajouter des noeuds au cluster, ou changer s
 > Adapter la branche à la dernière release stable de Kubespray.
 ```Shell
 cd /tmp
-git clone --single-branch --depth=1 --branch v2.26.0 git@github.com:kubernetes-sigs/kubespray.git
+git clone --single-branch --depth=1 --branch v2.27.0 git@github.com:kubernetes-sigs/kubespray.git
 cd kubespray/inventory/
 git clone --depth 1 git@github.com:marvinpac-it/mvp-cluster.git
 cd ..
@@ -47,7 +47,7 @@ Once this first bug resolved, a second one appears which is fixed by applying th
 
 ## Mise à jour de la commande kubectl
 ```Shell
-curl -LO "https://dl.k8s.io/release/v1.30.4/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/v1.31.4/bin/linux/amd64/kubectl"
 chmod +x kubectl
 ./kubectl version
 sudo mv kubectl /usr/local/bin/kubectl
@@ -57,9 +57,9 @@ sudo chown root:root /usr/local/bin/kubectl
 ## Vérifier les numéros de version
 ```Shell
 kubectl version
-Client Version: v1.30.4
+Client Version: v1.31.4
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-Server Version: v1.30.4
+Server Version: v1.31.4
 ```
 
 ## Mise à jour du fichier de config avec lequel on se connecte
