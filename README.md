@@ -8,7 +8,7 @@ peut être utilisée également pour ajouter des noeuds au cluster, ou changer s
 > Adapter la branche à la dernière release stable de Kubespray.
 ```Shell
 cd /tmp
-git clone --single-branch --depth=1 --branch v2.27.0 git@github.com:kubernetes-sigs/kubespray.git
+git clone --single-branch --depth=1 --branch v2.28.0 git@github.com:kubernetes-sigs/kubespray.git
 cd kubespray/inventory/
 git clone --depth 1 git@github.com:marvinpac-it/mvp-cluster.git
 cd ..
@@ -47,7 +47,7 @@ Once this first bug resolved, a second one appears which is fixed by applying th
 
 ## Mise à jour de la commande kubectl
 ```Shell
-curl -LO "https://dl.k8s.io/release/v1.31.4/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/v1.32.5/bin/linux/amd64/kubectl"
 chmod +x kubectl
 ./kubectl version
 sudo mv kubectl /usr/local/bin/kubectl
@@ -57,9 +57,9 @@ sudo chown root:root /usr/local/bin/kubectl
 ## Vérifier les numéros de version
 ```Shell
 kubectl version
-Client Version: v1.31.4
-Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-Server Version: v1.31.4
+Client Version: v1.32.5
+Kustomize Version: v5.5.0
+Server Version: v1.32.5
 ```
 
 ## Mise à jour du fichier de config avec lequel on se connecte
@@ -77,25 +77,26 @@ diff -r inventory/sample/ inventory/mvp-cluster/
 
 **Output:**
 ```Diff
-Only in mvp-cluster/: .git
-Only in mvp-cluster/: .gitignore
-diff -r sample/group_vars/all/all.yml mvp-cluster/group_vars/all/all.yml
+Only in inventory/mvp-cluster/: credentials
+Only in inventory/mvp-cluster/: .git
+Only in inventory/mvp-cluster/: .gitignore
+diff -r inventory/sample/group_vars/all/all.yml inventory/mvp-cluster/group_vars/all/all.yml
 3c3
 < bin_dir: /usr/local/bin
 ---
 > bin_dir: /opt/bin
-diff -r sample/group_vars/k8s_cluster/addons.yml mvp-cluster/group_vars/k8s_cluster/addons.yml
+diff -r inventory/sample/group_vars/k8s_cluster/addons.yml inventory/mvp-cluster/group_vars/k8s_cluster/addons.yml
 16c16
 < metrics_server_enabled: false
 ---
 > metrics_server_enabled: true
-104,105c104,105
+72,73c72,73
 < ingress_nginx_enabled: false
 < # ingress_nginx_host_network: false
 ---
 > ingress_nginx_enabled: true
 > ingress_nginx_host_network: true
-119,121c119,121
+87,89c87,89
 < # ingress_nginx_namespace: "ingress-nginx"
 < # ingress_nginx_insecure_port: 80
 < # ingress_nginx_secure_port: 443
@@ -103,7 +104,7 @@ diff -r sample/group_vars/k8s_cluster/addons.yml mvp-cluster/group_vars/k8s_clus
 > ingress_nginx_namespace: "ingress-nginx"
 > ingress_nginx_insecure_port: 80
 > ingress_nginx_secure_port: 443
-129,130c129,134
+97,98c97,102
 < # ingress_nginx_extra_args:
 < #   - --default-ssl-certificate=default/foo-tls
 ---
@@ -113,17 +114,19 @@ diff -r sample/group_vars/k8s_cluster/addons.yml mvp-cluster/group_vars/k8s_clus
 >   - --update-status=true
 >   - --controller-class=k8s.io/ingress-nginx
 >   - --watch-ingress-without-class=true
-132,133c136,137
+100,101c104,105
 < # ingress_nginx_class: nginx
 < # ingress_nginx_without_class: true
 ---
 > ingress_nginx_class: nginx
 > ingress_nginx_without_class: true
-180c184
+148c152
 < metallb_enabled: false
 ---
 > metallb_enabled: true
-187,203c191,212
+150a155
+> # metallb_version: v0.13.9
+154,170c159,180
 < # metallb_config:
 < #   speaker:
 < #     nodeselector:
@@ -164,26 +167,26 @@ diff -r sample/group_vars/k8s_cluster/addons.yml mvp-cluster/group_vars/k8s_clus
 >       ip_range:
 >         - 192.168.77.110-192.168.77.150
 >       auto_assign: true
-217,218c226,227
+184,185c194,195
 < #   layer2:
 < #     - primary
 ---
 >   layer2:
 >     - primary
-diff -r sample/group_vars/k8s_cluster/k8s-cluster.yml mvp-cluster/group_vars/k8s_cluster/k8s-cluster.yml
-129c129
+diff -r inventory/sample/group_vars/k8s_cluster/k8s-cluster.yml inventory/mvp-cluster/group_vars/k8s_cluster/k8s-cluster.yml
+124c124
 < kube_proxy_strict_arp: false
 ---
 > kube_proxy_strict_arp: true
-161a162,163
+156a157,158
 > searchdomains:
 >   - intranet-mvp.ch
-200,201c202,203
+195,196c197,198
 < enable_coredns_k8s_external: false
 < coredns_k8s_external_zone: k8s_external.local
 ---
 > enable_coredns_k8s_external: true
 > coredns_k8s_external_zone: k8s.intranet-mvp.ch
-Only in mvp-cluster/: hosts.yaml
-Only in mvp-cluster/: README.md
+Only in inventory/mvp-cluster/: hosts.yaml
+Only in inventory/mvp-cluster/: README.md
 ```
