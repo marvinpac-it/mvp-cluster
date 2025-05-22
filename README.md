@@ -67,6 +67,14 @@ Server Version: v1.32.5
 ssh -i ~/.ssh/flatcar_ssh.pem core@flatcar01 "sudo cat /etc/kubernetes/admin.conf | sed 's/127\.0\.0\.1/flatcar01/g'" > ~/.kube/config
 ```
 
+## Création d'une release
+
+Créer une release du repository `mvp-cluster` à la version de `kubespray` pour indiquer sur quelle release le projet est aligné.
+```Shell
+git tag v2.28.0
+git push origin tag v2.28.0
+```
+
 ## Revue des changements du template inventaire
 De temps en temps il peut être bon de revoir la partie inventaire en la comparant à celle qui est fournie comme example.
 Un diff entre `inventory/sample` et `inventory/mvp-cluster` (ce repo) permet de revoir ce qui a été ajouté dans l'exemple
