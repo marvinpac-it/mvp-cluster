@@ -71,6 +71,7 @@ ssh -i ~/.ssh/flatcar_ssh.pem core@flatcar01 "sudo cat /etc/kubernetes/admin.con
 
 Créer une release du repository `mvp-cluster` à la version de `kubespray` pour indiquer sur quelle release le projet est aligné.
 ```Shell
+cd /tmp/kubespray/inventory/mvp-cluster
 git tag v2.28.0
 git push origin tag v2.28.0
 ```
